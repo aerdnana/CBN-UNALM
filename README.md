@@ -1,15 +1,15 @@
-https://cbnunalm.netlify.app/ 
+# CBN UNALM
 
-Stack: Astro 5 + Keystatic (panel de edición) 
+Web del Círculo de Investigación en Bionegocios: https://cbnunalm.netlify.app/
 
-## Para usarlo localmente:
+Astro 5 + Keystatic + Netlify
+
+## Editar contenido
+https://cbnunalm.netlify.app/keystatic (con cuenta de GitHub colaboradora del repo). Cada cambio se publica solo.
+
+## Local
 ```bash
 npm install
 npm run dev
 ```
-
-## Para editar contenido
-1. Entra a https://cbnunalm.netlify.app/keystatic
-2. Pulsa **Log in with GitHub** 
-3. Elige qué editar
-4. Pulsa **Save**. Los cambios se guardan en el repositorio y la web se actualiza sola en unos minutos
+Panel local: http://localhost:4321/keystatic
