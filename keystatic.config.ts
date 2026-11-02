@@ -2,7 +2,7 @@ import { config, fields, collection, singleton } from '@keystatic/core';
 
 // En tu computadora usa archivos locales; en la web publicada guarda en GitHub.
 const storage = import.meta.env.PROD
-  ? { kind: 'github' as const, repo: 'cbn-unalm/web' as const } // ← cambia por tu usuario/repositorio
+  ? { kind: 'github' as const, repo: 'aerdnana/CBN-UNALM' as const }
   : { kind: 'local' as const };
 
 export default config({

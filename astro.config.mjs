@@ -9,7 +9,7 @@ import keystatic from '@keystatic/astro';
 const isDev = process.argv.includes('dev');
 
 export default defineConfig({
-  site: 'https://cbn-unalm.netlify.app',
+  site: 'https://cbnunalm.netlify.app',
   output: 'static',
   ...(isDev ? {} : { adapter: netlify() }),
   integrations: [react(), markdoc(), keystatic()],
