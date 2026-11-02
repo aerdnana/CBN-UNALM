@@ -1,0 +1,23 @@
+---
+const { sitio } = Astro.props;
+---
+<section id="nosotros" class="wrap section">
+  <div class="top"><div><span class="kicker">Nosotros</span><h2 class="h2">{sitio.nosotrosTitulo}</h2></div><p>{sitio.nosotrosTexto}</p></div>
+  <div class="ejes">{sitio.ejes.map((e, i) => <div><span>{String(i+1).padStart(2,'0')}</span><h3>{e.titulo}</h3><p>{e.texto}</p></div>)}</div>
+  {sitio.equipo?.length > 0 && <div class="equipo"><span>Directiva y asesoría</span>{sitio.equipo.map(p => <p><b>{p.nombre}</b> · {p.cargo}</p>)}</div>}
+</section>
+<div class="ticker" aria-hidden="true"><div class="track">{[0, 1, 2, 3].map(() => <div class="set">{['Investigación','Innovación','Biodiversidad','Emprendimiento','Sostenibilidad'].map(t => <span>{t}<i>✺</i></span>)}</div>)}</div></div>
+<style>
+.top{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:48px;margin-bottom:56px}.top>div{display:flex;flex-direction:column;gap:14px}
+.top>p{margin:0;align-self:end;font-size:18px;line-height:1.6;color:var(--muted)}
+.ejes{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:1px;background:rgba(19,38,26,.15);border:1px solid rgba(19,38,26,.15);border-radius:22px;overflow:hidden}
+.ejes>div{background:var(--bg);padding:30px 26px 34px;display:flex;flex-direction:column;gap:14px;transition:background .2s}.ejes>div:hover{background:var(--bg2)}
+.ejes span{font:500 12px var(--mono);color:var(--green)}.ejes h3{margin:0;font:700 24px var(--display)}.ejes p{margin:0;font-size:15px;line-height:1.55;color:var(--muted)}
+.ticker{background:var(--green);color:var(--bg);overflow:hidden;white-space:nowrap;font:900 22px var(--display);padding-block:18px}
+.track{display:flex;width:max-content;animation:marquee 30s linear infinite}.ticker:hover .track{animation-play-state:paused}
+.set{display:flex;flex-shrink:0}.ticker span{display:flex;padding-right:40px;gap:40px}.ticker i{font-style:normal;color:var(--lime)}
+@keyframes marquee{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.track{animation:none}}
+@media (max-width:640px){.top{gap:24px;margin-bottom:36px}.top>p{font-size:16px}.ticker{font-size:18px}}
+.equipo{margin-top:40px;display:flex;gap:10px 32px;flex-wrap:wrap;align-items:baseline}.equipo span{font:500 12px var(--mono);text-transform:uppercase;color:var(--green)}.equipo p{margin:0;font-size:15px;color:var(--muted)}.equipo b{color:var(--ink)}
+</style>

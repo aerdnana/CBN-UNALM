@@ -1,0 +1,14 @@
+---
+import '../styles/global.css';
+const { title = 'CBN UNALM · Semillero de Investigación en Bionegocios', description = 'Promovemos la investigación, la innovación y el emprendimiento sostenible desde la UNALM.' } = Astro.props;
+---
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title><meta name="description" content={description} />
+  <meta property="og:title" content={title} /><meta property="og:image" content="/logo.jpg" />
+  <link rel="icon" href="/logo.jpg" />
+</head>
+<body><slot /></body>
+</html>

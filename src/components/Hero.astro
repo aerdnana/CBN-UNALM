@@ -1,0 +1,57 @@
+---
+const { sitio, eventos = [] } = Astro.props;
+---
+<section id="inicio" class="wrap hero">
+  <div class="copy">
+    <h1>{sitio.titulo}</h1>
+    <p>{sitio.bajada}</p>
+    <div class="ctas"><a class="btn btn-primary" href="#emprendimientos">Conoce los proyectos →</a><a class="btn btn-ghost" href="#eventos">Próximos eventos</a></div>
+  </div>
+  <div class="media">
+    {sitio.fotoHero ? <img src={sitio.fotoHero} alt="" /> : <div class="ph" style="position:absolute;inset:0">foto: feria de bionegocios en campus</div>}
+    {eventos.length > 0 && (
+      <div class="rot" aria-roledescription="carrusel" aria-label="Próximos eventos">
+        {eventos.map((e, i) => (
+          <a href="#eventos" class={'card' + (i === 0 ? ' on' : '')} aria-hidden={i === 0 ? 'false' : 'true'} tabindex={i === 0 ? 0 : -1}><span><small>{e.titulo}</small><b>{[e.fechaTexto, e.lugar].filter(Boolean).join(' · ')}</b></span><i>→</i></a>
+        ))}
+        {eventos.length > 1 && <div class="dots">{eventos.map((_, i) => <button type="button" aria-label={'Evento ' + (i + 1)} class={i === 0 ? 'on' : ''}></button>)}</div>}
+      </div>
+    )}
+  </div>
+</section>
+<script>
+  const rot = document.querySelector<HTMLElement>('.rot');
+  if (rot) {
+    const cards = [...rot.querySelectorAll<HTMLElement>('.card')];
+    const dots = [...rot.querySelectorAll<HTMLElement>('.dots button')];
+    let i = 0, timer: number | undefined;
+    const ir = (n: number) => {
+      i = (n + cards.length) % cards.length;
+      cards.forEach((c, k) => { c.classList.toggle('on', k === i); c.setAttribute('aria-hidden', String(k !== i)); c.tabIndex = k === i ? 0 : -1; });
+      dots.forEach((d, k) => d.classList.toggle('on', k === i));
+    };
+    const iniciar = () => { if (cards.length > 1 && !matchMedia('(prefers-reduced-motion: reduce)').matches) timer = window.setInterval(() => ir(i + 1), 4500); };
+    const parar = () => clearInterval(timer);
+    dots.forEach((d, k) => d.addEventListener('click', () => { parar(); ir(k); iniciar(); }));
+    rot.addEventListener('mouseenter', parar); rot.addEventListener('mouseleave', () => { parar(); iniciar(); });
+    iniciar();
+  }
+</script>
+<style>
+.hero{padding-block:56px 72px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:48px;align-items:center}
+.copy{display:flex;flex-direction:column;gap:28px}
+h1{margin:0;font:800 clamp(38px,5.6vw,80px)/.95 var(--display);letter-spacing:-.035em;text-wrap:balance}
+p{margin:0;max-width:520px;font-size:clamp(17px,1.5vw,20px);line-height:1.55;color:var(--muted)}
+.ctas{display:flex;gap:12px;flex-wrap:wrap}
+.media{position:relative;aspect-ratio:4/5;max-height:620px;border-radius:28px;overflow:hidden}.media img{width:100%;height:100%;object-fit:cover}
+.rot{position:absolute;left:18px;right:18px;bottom:18px;display:grid}
+.card{grid-area:1/1;opacity:0;transform:translateY(12px);visibility:hidden;transition:opacity .5s,transform .5s,visibility .5s;background:var(--ink);color:var(--bg);border-radius:18px;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;gap:14px;text-decoration:none}
+.card.on{opacity:1;transform:none;visibility:visible}
+.dots{grid-area:2/1;display:flex;justify-content:center;gap:6px;margin-top:10px}.dots button{width:8px;height:8px;padding:0;border:0;border-radius:99px;background:rgba(19,38,26,.4);box-shadow:0 0 0 1px rgba(251,252,248,.5);cursor:pointer;transition:.3s}.dots button.on{width:22px;background:var(--lime);box-shadow:0 0 0 1px var(--ink)}
+.card span{display:flex;flex-direction:column;gap:4px}.card small{font:500 11px var(--mono);color:var(--lime);letter-spacing:.06em;text-transform:uppercase}.card b{font:700 18px var(--display)}
+.card i{font-style:normal;width:42px;height:42px;border-radius:50%;background:var(--lime);color:var(--ink);display:grid;place-items:center;font-weight:700}
+@media (max-width:640px){
+.hero{padding-block:28px 48px;gap:32px}.copy{gap:20px}.ctas .btn{width:100%;justify-content:center}
+.media{aspect-ratio:4/3}.rot{left:12px;right:12px;bottom:12px}.card{padding:14px 16px}.card b{font-size:15px}.card i{width:36px;height:36px;flex-shrink:0}
+}
+</style>

@@ -1,0 +1,43 @@
+---
+const links = [['#nosotros','Nosotros'],['#emprendimientos','Proyectos'],['#eventos','Eventos'],['#logros','Logros'],['#areas','Áreas']];
+---
+<header>
+  <div class="wrap bar">
+    <a href="#inicio" class="brand"><img src="/logo.jpg" alt="CBN UNALM" width="52" height="52" /></a>
+    <nav><div class="links">{links.map(([h,l]) => <a href={h}>{l}</a>)}</div><a href="#unete" class="cta">Únete al círculo</a></nav>
+  </div>
+</header>
+<script>
+  const links = [...document.querySelectorAll<HTMLAnchorElement>('.links a')];
+  const secs = [...links.map(a => a.getAttribute('href')!), '#unete'].map(h => document.querySelector(h)).filter(Boolean) as HTMLElement[];
+  let actual: HTMLAnchorElement | null = null;
+  const marcar = () => {
+    let id = '';
+    for (const s of secs) if (s.getBoundingClientRect().top <= 140) id = s.id;
+    const a = links.find(l => l.getAttribute('href') === '#' + id) ?? null;
+    if (a === actual) return;
+    actual = a;
+    links.forEach(l => { l.classList.toggle('activo', l === a); l === a ? l.setAttribute('aria-current', 'true') : l.removeAttribute('aria-current'); });
+    const cont = a?.parentElement;
+    if (a && cont && cont.scrollWidth > cont.clientWidth) cont.scrollTo({ left: a.offsetLeft - 24, behavior: 'smooth' });
+  };
+  addEventListener('scroll', marcar, { passive: true });
+  marcar();
+</script>
+<style>
+header{position:sticky;top:12px;z-index:20;padding-inline:12px;pointer-events:none}
+.bar{pointer-events:auto;max-width:1240px;margin:0 auto;padding:8px 10px 8px 8px;display:flex;align-items:center;justify-content:space-between;gap:16px;background:rgba(251,252,248,.9);backdrop-filter:blur(12px);border:1px solid rgba(19,38,26,.1);border-radius:999px;box-shadow:0 8px 28px rgba(19,38,26,.1)}
+.brand{display:flex;text-decoration:none}.brand img{width:52px;height:52px;border-radius:50%;object-fit:cover}
+nav{display:flex;gap:8px;align-items:center}
+.links{display:flex;gap:2px;align-items:center}
+nav a{padding:9px 14px;border-radius:999px;font-size:14px;font-weight:500;text-decoration:none;color:var(--ink)}nav a:hover{background:rgba(31,91,42,.1)}
+nav a.activo,nav a.activo:hover{background:var(--green);color:var(--bg)}
+nav .cta{background:var(--ink);color:var(--bg);font-weight:600;padding:12px 20px}nav .cta:hover{background:var(--green);color:var(--bg)}
+@media (max-width:760px){
+header{top:8px;padding-inline:8px}
+.bar{flex-wrap:wrap;border-radius:26px;padding:8px;gap:6px 12px}.brand img{width:42px;height:42px}
+nav{display:contents}.cta{order:2;margin-left:auto;font-size:13.5px;padding:10px 16px!important}.brand{order:1}
+.links{order:3;width:100%;overflow-x:auto;scrollbar-width:none;gap:2px}.links::-webkit-scrollbar{display:none}
+.links a{white-space:nowrap;padding:7px 11px;font-size:13.5px}
+}
+</style>

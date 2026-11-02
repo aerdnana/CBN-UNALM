@@ -1,0 +1,36 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Nosotros from '../components/Nosotros.astro';
+import Emprendimientos from '../components/Emprendimientos.astro';
+import Eventos from '../components/Eventos.astro';
+import Logros from '../components/Logros.astro';
+import Areas from '../components/Areas.astro';
+import Unete from '../components/Unete.astro';
+import Footer from '../components/Footer.astro';
+import sitio from '../data/sitio.json';
+
+const hoy = new Date().toISOString().slice(0, 10);
+const emprendimientos = (await getCollection('emprendimientos')).map(e => e.data).filter(e => e.visible).sort((a, b) => a.nombre.localeCompare(b.nombre));
+// Oculta eventos cuya fecha ya pasó (los que no tienen fecha siempre se muestran)
+const eventos = (await getCollection('eventos')).map(e => e.data)
+  .filter(e => !e.fecha || e.fecha >= hoy)
+  .sort((a, b) => Number(b.destacado) - Number(a.destacado) || (a.fecha ?? '9999').localeCompare(b.fecha ?? '9999'));
+const logros = (await getCollection('logros')).map(e => e.data).sort((a, b) => a.orden - b.orden);
+const areas = (await getCollection('areas')).map(e => e.data).sort((a, b) => a.orden - b.orden);
+---
+<Base>
+  <Header />
+  <main>
+    <Hero sitio={sitio} eventos={eventos.slice(0, 5)} />
+    <Nosotros sitio={sitio} />
+    <Emprendimientos items={emprendimientos} />
+    <Eventos items={eventos} />
+    <Logros items={logros} cifras={sitio.cifras} />
+    <Areas items={areas} />
+    <Unete sitio={sitio} />
+  </main>
+  <Footer sitio={sitio} />
+</Base>

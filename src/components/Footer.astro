@@ -1,0 +1,17 @@
+---
+const { sitio } = Astro.props;
+const redes = [['Instagram', sitio.instagram], ['Facebook', sitio.facebook], ['TikTok', sitio.tiktok], ['LinkedIn', sitio.linkedin], ['Correo', 'mailto:' + sitio.correo]].filter(r => r[1]);
+---
+<footer><div class="wrap">
+  <div class="big">Bionegocios<span>.</span></div>
+  {sitio.lema && <p class="lema">{sitio.lema}</p>}
+  <div class="row"><span>Círculo de Investigación en Bionegocios · Universidad Nacional Agraria La Molina, Lima</span><nav>{redes.map(([l, h]) => <a href={h}>{l}</a>)}</nav></div>
+</div></footer>
+<style>
+footer{background:var(--ink);color:rgba(251,252,248,.8)}footer .wrap{padding-block:56px 36px;display:flex;flex-direction:column;gap:40px}
+.big{font:800 clamp(40px,9vw,140px)/.9 var(--display);letter-spacing:-.045em;color:var(--bg)}.big span{color:var(--lime)}
+.lema{margin:0;font-size:18px;max-width:560px;color:var(--lime)}
+.row{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:14px;border-top:1px solid rgba(251,252,248,.15);padding-top:24px}
+nav{display:flex;gap:20px;flex-wrap:wrap}nav a{color:var(--lime)}
+@media (max-width:640px){footer .wrap{padding-block:40px 28px;gap:28px}.row{flex-direction:column}}
+</style>

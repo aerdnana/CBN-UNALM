@@ -1,0 +1,43 @@
+---
+const { items } = Astro.props;
+const cats = ['Todos', ...new Set(items.map(i => i.categoria))];
+---
+<section id="emprendimientos" class="dark">
+  <div class="wrap section">
+    <div class="head">
+      <div><span class="kicker" style="color:var(--lime)">Vitrina</span><h2 class="h2">Proyectos que inspiran.</h2></div>
+      <div class="chips">{cats.map((c, i) => <button data-cat={c} aria-pressed={i === 0 ? 'true' : 'false'}>{c}</button>)}</div>
+    </div>
+    <div class="grid">
+      {items.map(v => (
+        <article data-cat={v.categoria}>
+          {v.imagen ? <img src={v.imagen} alt={v.nombre} loading="lazy" /> : <div class="ph thumb">logo / producto: {v.nombre}</div>}
+          <div class="body"><span>{v.categoria}</span><h3>{v.nombre}</h3><p>{v.descripcion}</p>{v.instagram && <a href={v.instagram} target="_blank" rel="noopener">Ver en Instagram →</a>}</div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+<script>
+  const btns = document.querySelectorAll('#emprendimientos .chips button');
+  const cards = document.querySelectorAll('#emprendimientos article');
+  btns.forEach(b => b.addEventListener('click', () => {
+    btns.forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    cards.forEach(c => (c as HTMLElement).hidden = b.dataset.cat !== 'Todos' && c.dataset.cat !== b.dataset.cat);
+  }));
+</script>
+<style>
+.dark{background:var(--ink);color:var(--bg)}
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:28px;flex-wrap:wrap;margin-bottom:40px}.head>div:first-child{display:flex;flex-direction:column;gap:14px;max-width:640px}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chips button{padding:9px 16px;border-radius:999px;border:1px solid rgba(251,252,248,.3);background:transparent;color:var(--bg);font:500 14px inherit;cursor:pointer}
+.chips button[aria-pressed="true"]{background:var(--lime);color:var(--ink);border-color:var(--lime)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,270px),1fr));gap:18px}
+article[hidden]{display:none}
+article{background:var(--dark2);border-radius:22px;overflow:hidden;display:flex;flex-direction:column;transition:transform .25s}article:hover{transform:translateY(-4px)}
+article img,.thumb{aspect-ratio:4/3;width:100%;object-fit:cover}
+.thumb{background:repeating-linear-gradient(135deg,#2a3d33 0 10px,#314638 10px 20px);color:rgba(251,252,248,.5);font-size:11px}
+.body{padding:20px 22px 24px;display:flex;flex-direction:column;gap:8px}
+.body span{font:500 11px var(--mono);color:var(--lime);text-transform:uppercase;letter-spacing:.06em}.body h3{margin:0;font:700 22px var(--display)}
+.body p{margin:0;font-size:14.5px;line-height:1.5;color:rgba(251,252,248,.7)}.body a{color:var(--lime);font-size:14px;margin-top:6px}
+</style>

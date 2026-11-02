@@ -1,0 +1,43 @@
+{
+  "titulo": "Semillero de Investigación en Bionegocios · UNALM",
+  "bajada": "Promovemos la investigación, la innovación y el emprendimiento sostenible, uniendo ciencia, gestión y mercado.",
+  "fotoHero": null,
+  "nosotrosTitulo": "Transformamos recursos biológicos en oportunidades.",
+  "nosotrosTexto": "Buscamos formar profesionales capaces de transformar recursos biológicos en oportunidades responsables que generen valor económico, social y ambiental. Creemos en los bionegocios como motor del desarrollo y en la colaboración como base del cambio.",
+  "ejes": [
+    {
+      "titulo": "Investigación",
+      "texto": "Estudios de mercado y cadenas de valor de productos de la biodiversidad."
+    },
+    {
+      "titulo": "Emprendimiento",
+      "texto": "Acompañamos ideas de estudiantes hasta validarlas con clientes reales."
+    },
+    {
+      "titulo": "Vinculación",
+      "texto": "Conectamos emprendedores, comunidades, empresas y la universidad."
+    },
+    {
+      "titulo": "Formación",
+      "texto": "Talleres y charlas sobre bionegocios, finanzas y comercio sostenible."
+    }
+  ],
+  "lema": "Formando líderes en innovación, sostenibilidad y transformación del sector agrario.",
+  "equipo": [
+    { "nombre": "Karlo Castro Vargas", "cargo": "Presidente" },
+    { "nombre": "Karina Yachi Del Pino", "cargo": "Docente asesora" }
+  ],
+  "cifras": [
+    { "numero": "2", "texto": "subvenciones de tesis de pregrado UNALM" },
+    { "numero": "1", "texto": "tesis seleccionada en la Semana de la Investigación 2025" },
+    { "numero": "2", "texto": "proyectos de extensión presentados y reconocidos" }
+  ],
+  "convocatoriaAbierta": true,
+  "convocatoriaTexto": "Buscamos estudiantes de cualquier carrera de la UNALM con ganas de investigar, emprender y organizar. No necesitas experiencia previa.",
+  "convocatoriaLink": "https://forms.gle/L9BRuf9S3JCdMgQP6",
+  "correo": "cbn.unalm.bionegocios@gmail.com",
+  "instagram": "https://www.instagram.com/cbn_unalm/",
+  "facebook": "https://www.facebook.com/cbnunalm/",
+  "tiktok": "https://www.tiktok.com/@cbn_unalm",
+  "linkedin": "https://www.linkedin.com/company/cbn-unalm/"
+}

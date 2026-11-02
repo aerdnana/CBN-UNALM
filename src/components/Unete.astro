@@ -1,0 +1,30 @@
+---
+const { sitio } = Astro.props;
+---
+<section id="unete" class="lime">
+  <div class="wrap section grid">
+    <div class="copy">
+      <span class="kicker" style="color:var(--ink)">Convocatoria</span>
+      <h2>Sé parte del círculo.</h2>
+      <p>{sitio.convocatoriaTexto}</p>
+      <div class="contact"><small>Escríbenos</small><a href={'mailto:' + sitio.correo}>{sitio.correo}</a><a href={sitio.instagram}>@cbn_unalm</a></div>
+    </div>
+    <div class="box">
+      {sitio.convocatoriaAbierta ? (
+        <><b>Convocatoria abierta</b><p>Completa el formulario oficial. Te contactaremos con los próximos pasos.</p><a class="btn" href={sitio.convocatoriaLink} target="_blank" rel="noopener">Postular ahora ↗</a></>
+      ) : (
+        <><b>Convocatoria cerrada</b><p>Síguenos en Instagram para enterarte de la próxima.</p><a class="btn" href={sitio.instagram}>Seguir a @cbn_unalm</a></>
+      )}
+    </div>
+  </div>
+</section>
+<style>
+.lime{background:var(--lime)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));gap:56px;align-items:center}
+.copy{display:flex;flex-direction:column;gap:20px}h2{margin:0;font:800 clamp(40px,5.4vw,76px)/.95 var(--display);letter-spacing:-.04em}
+.copy p{margin:0;font-size:18px;line-height:1.6;max-width:460px}
+.contact{display:flex;flex-direction:column;gap:6px;margin-top:12px}.contact small{font:500 12px var(--mono);text-transform:uppercase}.contact a{color:var(--ink);font-weight:600}
+.box{background:var(--bg);border-radius:26px;padding:clamp(24px,3vw,40px);display:flex;flex-direction:column;gap:14px;align-items:flex-start}
+.box b{font:700 30px var(--display)}.box p{margin:0;font-size:16px;line-height:1.55;color:var(--muted)}
+.box .btn{background:var(--ink);color:var(--bg);margin-top:8px}.box .btn:hover{background:var(--green)}
+@media (max-width:640px){.grid{gap:32px}}
+</style>
